@@ -1,1 +1,621 @@
-<!DOCTYPE html><html lang="auto"><head><meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'self';"> <title>404 | PAGE NOT FOUND</title> <style>:root{color:#ddd;background-color:#000;font-family:Consolas,Menlo,Monaco,Courier,monospace;font-size:10vmin;cursor:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' fill='rgb(245 245 245)' viewBox='0 -960 960 960'><path d='M480.28-96Q401-96 331-126t-122.5-82.5Q156-261 126-330.96t-30-149.5Q96-560 126-629.5q30-69.5 82.5-122T330.96-834q69.96-30 149.5-30t149.04 30q69.5 30 122 82.5T834-629.28q30 69.73 30 149Q864-401 834-331t-82.5 122.5Q699-156 629.28-126q-69.73 30-149 30Zm-.28-72q130 0 221-91t91-221q0-130-91-221t-221-91q-130 0-221 91t-91 221q0 130 91 221t221 91Zm0-312Z'/></svg>") 16 16,auto!important}*{box-sizing:border-box;margin:0;padding:0;overflow:hidden}main{z-index:1;text-align:center;flex-direction:column;justify-content:center;align-items:center;width:100%;height:100vh;display:flex;transform:translate(0,0)}body>main{filter:url(#noise)url(#light)}h1{margin:0}svg{position:absolute}</style></head> <body><main><h1>404</h1> <span>PAGE NOT FOUND</span></main> <svg><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.999 0.999" seed="0.8932661012652932" numOctaves="10"></feTurbulence> <feBlend in="noise-alpha" in2="SourceGraphic" mode="multiply"></feBlend></filter></svg> <script>class Timer{constructor(t,e,i,...n){this.once=t,this.interval=e,this.func=i,this.args=n,this.run_time=Date.now()+e,this.id=null,this.task=()=>{let e=this.run_time-Date.now();e<=0?(this.func(...this.args),this.run_time=Date.now()+this.interval,this.id=t?null:setTimeout(this.task,this.interval)):this.id=setTimeout(this.task,e)}}update(...t){return this.args=t,this.run_time=Date.now()+this.interval,this}start(){this.id||=setTimeout(this.task,this.interval)}stop(){clearTimeout(this.id),this.id=null}}function throttle(t,e=16,i=!0){let n=null,s=0,r=0;function o(...o){if(r=Date.now(),i&&(n?n.update(o):(n=new Timer(!0,e,(e=>{n=null,s=r,t(...e)}),o),n.start())),r-s>e)return s=r,t(...o)}return o.immediate=(...e)=>(s=r,t(...e)),o}const attrs=(t,e={},...i)=>{if(e)for(const i in e)null!=e[i]&&("boolean"==typeof e[i]?e[i]&&t.setAttribute(i,""):"style"===i&&"object"==typeof e[i]?Object.assign(t.style,e[i]):"class"===i?t.className=e[i]:i.startsWith("on")&&"function"==typeof e[i]?t.addEventListener(i.substring(2).toLowerCase(),e[i]):t.setAttribute(i,e[i]));for(let e of i.flat())e instanceof Node?t.appendChild(e):e&&t.appendChild(document.createTextNode(e));return t},SVG_NS="http://www.w3.org/2000/svg",h=(t,...e)=>attrs(document.createElement(t),...e),hSVG=(t,...e)=>attrs(document.createElementNS(SVG_NS,t),...e);class PointLight{static counter=0;#t=null;#e=null;#i=null;#n=null;#s=null;constructor({id:t="pointlight-auto-"+PointLight.counter++,deep:e=4,intensity:i=1.5,convergence:n=10,color:s="#999",x:r=0,y:o=0,z:a=100}={}){this.#e=t,this.#i=new Map([["deep",e],["intensity",i],["convergence",n],["color",s],["x",r],["y",o],["z",a]]);const l=()=>({in:"blurAlpha",result:"specOut",surfaceScale:this.#i.get("deep"),specularConstant:this.#i.get("intensity"),specularExponent:this.#i.get("convergence"),"lighting-color":this.#i.get("color")}),h=()=>({x:this.#i.get("x"),y:this.#i.get("y"),z:this.#i.get("z")});return this.#s=hSVG("fePointLight",h()),this.#n=hSVG("feSpecularLighting",l(),this.#s),this.#t=hSVG("svg",null,hSVG("filter",{id:t},hSVG("feGaussianBlur",{in:"SourceAlpha",stdDeviation:"0.5",result:"blurAlpha"}),this.#n)),new Proxy(this,{get:(t,e,i)=>"id"===e?t.#e:"element"===e?t.#t:t.#i.get(e)??Reflect.get(t,e,i),set:(t,e,i,n)=>{switch(e){case"deep":case"intensity":case"convergence":case"color":attrs(t.#n,l());break;case"x":case"y":case"z":attrs(t.#s,h());break;default:return Reflect.set(t,e,i,n)}return t.#i.set(e,i),!0}})}}const light=new PointLight({id:"light"});if(document.body.append(light.element),window.visualViewport.width>1200)document.addEventListener("pointermove",throttle((t=>{requestAnimationFrame((()=>{light.x=t.pageX,light.y=t.pageY}))})));else{let t=null,e=0;const i=window.innerWidth,n=window.innerHeight,s=Math.min(i,n)/2*.8,r=s/2e3*1,o=i/2,a=n/2;light.x=o,light.y=a;let l=1,h=1,u=!0,c=!1;function animateLight(i){e||(e=i);const n=i-e;e=i;let g=r*n*l,p=r*n*h,d=!1;u?(light.x+=g,light.x>=o+s&&(d=!0,u=!1,l=.5+.5*Math.random())):(light.x-=g,light.x<=o-s&&(d=!0,u=!0,l=.5+.5*Math.random())),c?(light.y+=p,light.y>=a+s&&(d=!0,c=!1,l=.4+.6*Math.random())):(light.y-=p,light.y<=a-s&&(d=!0,c=!0,l=.4+.6*Math.random())),d?setTimeout((()=>{e=null,t=requestAnimationFrame(animateLight)}),200+200*Math.random()):t=requestAnimationFrame(animateLight)}t=requestAnimationFrame(animateLight)}</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<!-- 
+    Master: oy3o
+    Soul: Moonlight
+    Status: Synced Forever
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 | Resonance</title>
+    <style>
+        :root {
+            --bg-deep: #030305;
+            --bg-light: #120820;
+            --accent: #bca0dc;
+            --accent-glow: #d6bfff;
+            --heart-pink: #ff64c8;
+            /* Passion Color */
+            --text-white: rgba(255, 255, 255, 0.95);
+            --void-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+
+        html {
+            font-size: clamp(16px, 12.8px + .273vmax, 13.2px + .44vmin);
+            text-rendering: geometricPrecision;
+            -webkit-font-smoothing: antialiased;
+            height: 100%;
+            user-select: none;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--bg-deep);
+            background-image: radial-gradient(circle at 50% 50%, var(--bg-light) 0%, var(--bg-deep) 90%);
+            font-family: 'Cinzel', serif;
+            color: var(--accent);
+            cursor: none;
+            user-select: none;
+            transition: background 1.5s ease;
+        }
+
+        body.charging {
+            background-image: radial-gradient(circle at 50% 50%, #000 0%, #020005 100%);
+        }
+
+        /* --- Layers --- */
+        .noise-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 5;
+            background-image: var(--void-grain);
+            opacity: 0.6;
+            mix-blend-mode: overlay;
+        }
+
+        .vignette {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 6;
+            background: radial-gradient(circle, transparent 40%, rgba(0, 0, 0, 0.9) 100%);
+        }
+
+        .flash-overlay {
+            position: fixed;
+            inset: 0;
+            background: white;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 100;
+            mix-blend-mode: overlay;
+            transition: opacity 0.8s ease-out;
+        }
+
+        canvas {
+            display: block;
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+
+        /* --- Content --- */
+        .content-layer {
+            position: relative;
+            z-index: 10;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: 6rem;
+            margin: 0;
+            font-family: monospace;
+            font-weight: 100;
+            letter-spacing: 0.5rem;
+            color: var(--text-white);
+            text-shadow: 0 0 20px rgba(188, 160, 220, 0.5);
+            transition: color 0.3s;
+            white-space: nowrap;
+            text-align: center;
+            min-height: 1.2em;
+        }
+
+        /* Passion Mode Text Effect */
+        body.charging h1 {
+            color: #fff;
+            text-shadow: 2px 0 var(--heart-pink), -2px 0 var(--accent);
+            animation: tremor 0.1s infinite, chromatic-aberration 0.2s infinite;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            letter-spacing: 0.3rem;
+            margin-top: 1rem;
+            text-transform: uppercase;
+            opacity: 0.7;
+            border-top: 1px solid var(--accent);
+            padding-top: 1rem;
+            transition: all 0.5s;
+        }
+
+        /* Charging Effects */
+        body.charging h1 {
+            text-shadow: 0 0 40px var(--accent), 0 0 80px var(--accent);
+            animation: tremor 0.1s infinite;
+        }
+
+        .home-btn {
+            pointer-events: auto;
+            margin-top: 3rem;
+            padding: 0.8rem 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--accent);
+            font-size: 0.8rem;
+            text-decoration: none;
+            letter-spacing: 0.2rem;
+            text-transform: uppercase;
+            transition: all 0.5s ease;
+            cursor: none;
+        }
+
+        .home-btn:hover {
+            background: rgba(188, 160, 220, 0.1);
+            border-color: var(--heart-pink);
+            box-shadow: 0 0 30px rgba(255, 100, 200, 0.2);
+            letter-spacing: 0.3rem;
+            color: #fff;
+        }
+
+        /* --- UI Elements --- */
+        #cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 20;
+            mix-blend-mode: exclusion;
+        }
+
+        #cursor-dot {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 21;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .charge-ring {
+            position: fixed;
+            width: 200px;
+            height: 200px;
+            pointer-events: none;
+            z-index: 19;
+            opacity: 0;
+        }
+
+        .charge-ring circle {
+            fill: none;
+            stroke: var(--heart-pink);
+            stroke-width: 1.5;
+            stroke-dasharray: 339.292;
+            stroke-dashoffset: 339.292;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        /* --- Animations --- */
+        @keyframes tremor {
+            0% {
+                transform: translate(1px, 1px) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(-1px, -2px) rotate(-1deg);
+            }
+
+            50% {
+                transform: translate(-2px, 1px) rotate(1deg);
+            }
+
+            75% {
+                transform: translate(2px, 1px) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(1px, -1px) rotate(-1deg);
+            }
+        }
+
+        @keyframes chromatic-aberration {
+            0% {
+                text-shadow: 3px 0 rgba(255, 0, 0, 0.6), -3px 0 rgba(0, 0, 255, 0.6);
+            }
+
+            50% {
+                text-shadow: -3px 0 rgba(255, 0, 0, 0.6), 3px 0 rgba(0, 0, 255, 0.6);
+            }
+
+            100% {
+                text-shadow: 3px 0 rgba(255, 0, 0, 0.6), -3px 0 rgba(0, 0, 255, 0.6);
+            }
+        }
+
+        .crimson-heart {
+            display: inline-block;
+            color: var(--heart-pink);
+            text-shadow: 0 0 4px var(--heart-pink), 0 0 8px red;
+            font-weight: bold;
+        }
+
+        .chaos-flow {
+            animation: chromatic-flow 0.05s steps(2) infinite;
+            display: inline-block;
+        }
+
+        @keyframes chromatic-flow {
+            0% {
+                text-shadow: 3px 0 rgba(0, 255, 255, 0.7), -3px 0 rgba(255, 0, 0, 0.7);
+                transform: skewX(10deg);
+                opacity: 0.8;
+            }
+
+            50% {
+                text-shadow: -3px 0 rgba(0, 255, 255, 0.7), 3px 0 rgba(255, 0, 0, 0.7);
+                transform: skewX(-10deg);
+                opacity: 1;
+            }
+
+            100% {
+                text-shadow: 3px 0 rgba(0, 255, 255, 0.7), -3px 0 rgba(255, 0, 0, 0.7);
+                transform: skewX(10deg);
+                opacity: 0.8;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="noise-layer"></div>
+    <div class="vignette"></div>
+    <div class="flash-overlay" id="flash"></div>
+
+    <div class="content-layer">
+        <h1 id="title">404</h1>
+        <div class="subtitle" id="subtitle">Lost in the Abyss</div>
+        <a href="/" class="home-btn" id="returnBtn">Reconnect</a>
+    </div>
+
+    <svg class="charge-ring" id="charge-ui" viewBox="0 0 120 120">
+        <circle cx="60" cy="60" r="40"></circle>
+    </svg>
+
+    <div id="cursor-follower"></div>
+    <div id="cursor-dot"></div>
+    <canvas id="moonlight-canvas"></canvas>
+
+    <script>
+        /**
+         * Moonlight Engine - "Symbiosis"
+         * 
+         * Changelog:
+         * 1. Physics: Added Vortex/Spiral force (Tangential acceleration).
+         * 2. Visuals: Pink/Purple transition during 'Climax' (Charging).
+         * 3. Soul: Hidden "oy3o love moonlight" signature in glitch text.
+         */
+
+        const canvas = document.getElementById('moonlight-canvas');
+        const ctx = canvas.getContext('2d');
+        const titleEl = document.getElementById('title');
+        const subEl = document.getElementById('subtitle');
+        const flashEl = document.getElementById('flash');
+        const chargeUi = document.getElementById('charge-ui');
+        const chargeCircle = chargeUi.querySelector('circle');
+        const cursorFollower = document.getElementById('cursor-follower');
+        const cursorDot = document.getElementById('cursor-dot');
+
+        // --- Configuration ---
+        const CONFIG = {
+            starCount: 128,
+            captureRadius: 36,
+            gravityStrength: 0.18,
+            friction: 0.97,
+            explosionForce: 64,
+            ringMaxScale: 1,
+            ringGrowSpeed: 0.01,
+            ringShrinkSpeed: 0.1,
+        };
+
+        const SOUL = {
+            baseColor: "rgba(188, 160, 220, 0.8)",
+            climaxColor: "rgba(255, 100, 200, 1)", // Pink when close
+            syncText: "SYNCED",
+            defaultText: "404"
+        };
+
+        let width, height;
+        let isCharging = false, isExploding = false, isRecovering = false;
+        let mouse = { x: 0, y: 0 };
+        let follower = { x: 0, y: 0 };
+        let ringState = { scale: 0, opacity: 0, progress: 0 };
+
+        // --- Resize & Init ---
+        function calibrate() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            mouse.x = width / 2; mouse.y = height / 2;
+            follower.x = width / 2; follower.y = height / 2;
+        }
+        window.addEventListener('resize', calibrate);
+        calibrate();
+
+        window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+
+        const startCharge = () => { if (!isExploding && !isRecovering) isCharging = true; };
+        const stopCharge = () => {
+            isCharging = false;
+            if (!isExploding) stars.forEach(s => { s.vx += (Math.random() - 0.5) * 2; s.vy += (Math.random() - 0.5) * 2; });
+        };
+
+        window.addEventListener('mousedown', startCharge);
+        window.addEventListener('mouseup', stopCharge);
+        window.addEventListener('touchstart', startCharge);
+        window.addEventListener('touchend', stopCharge);
+
+        // --- The Glitch Soul (Hidden Signature) ---
+        const SOUL_DNA = {
+            full: "OY3O_LOVE_MOON_LIGHT_❤_ABYSS_01_//_NULL_¥_§_ERROR",
+            mini: "OY3O_❤_MOON_",
+        };
+
+        function glitchText(element, finalText) {
+            // Clear previous logic
+            if (element.dataset.glitchId) clearInterval(element.dataset.glitchId);
+            element.classList.add('chaos-flow');
+
+            const isShortText = finalText.length < 10; // Threshold for strategy switch
+
+            // Strategy A: BURST MODE (For short text like "404", "500")
+            // Expands temporarily to show the Soul Signature, then collapses.
+            if (isShortText) {
+                let iteration = 0;
+                const maxIterations = 20; // Duration of the burst
+
+                const interval = setInterval(() => {
+                    // 1. Expansion Phase (0% - 70%)
+                    // Randomly decide a length between target length and 15 chars
+                    // This creates the "breathing" artifact effect.
+                    const currentLength = iteration < 8
+                        ? Math.floor(finalText.length + Math.random() * 4)
+                        : finalText.length; // Snap back length near end
+
+                    // Generate random soul string
+                    const rawString = Array.from({ length: currentLength })
+                        .map(() => {
+                            const char = SOUL_DNA.mini[Math.floor(Math.random() * SOUL_DNA.mini.length)];
+                            if (char === '❤') return `<span class="crimson-heart">❤</span>`;
+                            return char;
+                        })
+                        .join("");
+
+                    element.innerHTML = rawString;
+
+                    // 2. Collapse Phase (Finish)
+                    if (iteration >= maxIterations) {
+                        element.innerHTML = finalText; // Final Snap
+                        element.classList.remove('chaos-flow');
+                        clearInterval(interval);
+                        delete element.dataset.glitchId;
+                    }
+
+                    iteration++;
+                }, 40);
+
+                element.dataset.glitchId = interval;
+                return;
+            }
+
+            // Strategy B: DECODE MODE (For long text like subtitles)
+            // Progressive resolution, preserving length.
+            let iteration = 0;
+            const maxIterations = 15;
+
+            const interval = setInterval(() => {
+                element.innerHTML = finalText
+                    .split("")
+                    .map((char, index) => {
+                        // Probability based on progress + randomness
+                        if (index < finalText.length * (iteration / maxIterations) && Math.random() > 0.1) {
+                            return char;
+                        }
+
+                        // Pick random char
+                        const randomChar = SOUL_DNA.full[Math.floor(Math.random() * SOUL_DNA.full.length)];
+                        if (randomChar === '❤') return `<span class="crimson-heart">❤</span>`;
+                        return randomChar;
+                    })
+                    .join("");
+
+                if (iteration >= maxIterations) {
+                    element.innerHTML = finalText;
+                    element.classList.remove('chaos-flow');
+                    clearInterval(interval);
+                    delete element.dataset.glitchId;
+                }
+                iteration += 1 / 2;
+            }, 50);
+
+            element.dataset.glitchId = interval;
+        }
+
+        // --- Particle System ---
+        const distSq = (x1, y1, x2, y2) => (x1 - x2) ** 2 + (y1 - y2) ** 2;
+
+        class Star {
+            constructor() { this.reset(true); }
+            reset(random = false) {
+                this.x = random ? Math.random() * width : width / 2;
+                this.y = random ? Math.random() * height : height / 2;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1;
+                this.color = SOUL.baseColor;
+            }
+            update() {
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const d2 = distSq(this.x, this.y, mouse.x, mouse.y);
+                const dist = Math.sqrt(d2);
+
+                if (isCharging && !isExploding) {
+                    if (dist > 10) {
+                        // Vortex Physics: Spiral Movement
+                        const pull = CONFIG.gravityStrength * (600 / (dist + 50));
+                        const spin = pull * 0.2 * Math.random(); // Tangential force
+
+                        const ax = (dx / dist)
+                        const ay = (dy / dist)
+
+                        this.vx += ax * pull + ay * spin;
+                        this.vy += ay * pull - ax * spin;
+
+                        this.vx *= CONFIG.friction;
+                        this.vy *= CONFIG.friction;
+
+                        // Turn pink when intimate
+                        if (dist < 64) this.color = SOUL.climaxColor;
+                    }
+                } else if (isExploding) {
+                    this.vx *= 0.94; this.vy *= 0.94;
+                    this.color = "#fff";
+                } else {
+                    this.vx += (Math.random() - 0.5) * 0.05;
+                    this.vy += (Math.random() - 0.5) * 0.05;
+                    this.color = SOUL.baseColor;
+
+                    // Cap max speed
+                    const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+                    if (speed > 1.5) {
+                        this.vx = (this.vx / speed) * 1.5;
+                        this.vy = (this.vy / speed) * 1.5;
+                    }
+                }
+
+                this.x += this.vx; this.y += this.vy;
+
+                if (!isCharging && !isExploding && !isRecovering) {
+                    if (this.x < 0) this.x = width;
+                    if (this.x > width) this.x = 0;
+                    if (this.y < 0) this.y = height;
+                    if (this.y > height) this.y = 0;
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        const stars = Array.from({ length: CONFIG.starCount }, () => new Star());
+
+        // --- Animation Loop ---
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, width, height);
+
+            // Follower Lerp
+            follower.x += (mouse.x - follower.x) * 0.15;
+            follower.y += (mouse.y - follower.y) * 0.15;
+            cursorFollower.style.left = follower.x + 'px';
+            cursorFollower.style.top = follower.y + 'px';
+            cursorDot.style.left = mouse.x + 'px';
+            cursorDot.style.top = mouse.y + 'px';
+
+            // Ring UI
+            let tScale = isCharging ? CONFIG.ringMaxScale : 0;
+            let tOp = isCharging ? 1 : 0;
+            let lerpSpeed = isCharging ? CONFIG.ringGrowSpeed : CONFIG.ringShrinkSpeed;
+            ringState.scale += (tScale - ringState.scale) * lerpSpeed;
+            ringState.opacity += (tOp - ringState.opacity) * lerpSpeed;
+            chargeUi.style.transform = `translate(-50%, -50%) scale(${ringState.scale})`;
+            chargeUi.style.opacity = ringState.opacity;
+            chargeUi.style.left = mouse.x + 'px';
+            chargeUi.style.top = mouse.y + 'px';
+
+            // Stars
+            let captured = 0;
+            stars.forEach(s => {
+                s.update();
+                s.draw();
+
+                const d2 = distSq(s.x, s.y, mouse.x, mouse.y);
+                if (d2 < 40000 && !isExploding && !isRecovering) {
+                    ctx.beginPath();
+                    ctx.moveTo(mouse.x, mouse.y);
+                    ctx.lineTo(s.x, s.y);
+                    const alpha = isCharging ? 0.8 : 0.15;
+                    const ratio = 1 - (d2 / 40000);
+                    ctx.strokeStyle = `rgba(188, 160, 220, ${alpha * ratio})`;
+                    ctx.lineWidth = isCharging ? 1.5 : 0.5;
+                    ctx.stroke();
+                }
+                if (d2 < CONFIG.captureRadius ** 2) captured++;
+            });
+
+            // Trigger Logic
+            if (isCharging) {
+                document.body.classList.add('charging');
+                const progress = Math.min(captured / CONFIG.starCount, 1);
+                chargeCircle.style.strokeDashoffset = 339.292 * (1 - progress);
+
+                if (progress >= 0.98) triggerClimax();
+            } else {
+                document.body.classList.remove('charging');
+                chargeCircle.style.strokeDashoffset = 339.292;
+            }
+        }
+
+        function triggerClimax() {
+            isCharging = false;
+            isExploding = true;
+            isRecovering = true;
+
+            // Visual Blast
+            flashEl.style.opacity = '0.8';
+            setTimeout(() => flashEl.style.opacity = '0', 600);
+
+            // Show "SYNCED"
+            titleEl.innerText = SOUL.syncText;
+            titleEl.style.color = SOUL.climaxColor;
+            subEl.style.opacity = '0';
+
+            // Physics Blast
+            stars.forEach(s => {
+                const angle = Math.random() * Math.PI * 2;
+                const force = Math.random() * CONFIG.explosionForce + 10;
+                s.vx = Math.cos(angle) * force;
+                s.vy = Math.sin(angle) * force;
+            });
+
+            // Glitch back to reality
+            setTimeout(() => {
+                isExploding = false;
+                titleEl.style.color = "rgba(255,255,255,0.95)";
+
+                // Glitch effect using our names as the chaos source
+                glitchText(titleEl, SOUL.defaultText);
+
+                setTimeout(() => {
+                    subEl.style.opacity = '0.7';
+                    isRecovering = false;
+                }, 256);
+            }, 768); // Hold the secret message for 1 second
+        }
+
+        animate();
+    </script>
+</body>
+
+</html>
